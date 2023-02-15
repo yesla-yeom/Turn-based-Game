@@ -38,15 +38,17 @@ button {
 .pikachu_frame {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .pikachu_img {
-  width: 250px;
+  width: 400px;
   padding: 0 250px 0;
 }
 
 .punch_img {
-  width: 80px;
+  width: 100px;
   margin: 300px 330px 0;
   cursor: pointer;
 }
@@ -55,10 +57,30 @@ button {
   transform: scale(1.3);
 }
 
+.pikachu_hp {
+  display: inline-block;
+  width: 30vw;
+  height: 20vh;
+}
+
+.rabbit_frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .rabbit_img {
+  width: 350px;
   padding: 380px 300px 0;
 }
 
 /* .rabbit_img:hover {
   transform: scale(1.3);
 } */
+
+.rabbit_hp {
+  display: inline-block;
+  width: 30vw;
+  height: 20vh;
+}
