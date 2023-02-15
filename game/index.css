@@ -1,0 +1,64 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url(./img/background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.start_button {
+  width: 1.5em;
+  height: 1.5em;
+  margin-top: 100px;
+  background-color: wheat;
+  border: 5px solid black;
+  font-size: 2em;
+  display: block;
+  transition: transform 100ms ease-in-out;
+}
+
+.start_button:hover {
+  transform: scale(1.1);
+}
+
+.characters {
+  display: flex;
+  flex-direction: row;
+}
+
+.pikachu_frame {
+  display: flex;
+  flex-direction: column;
+}
+
+.pikachu_img {
+  width: 250px;
+  padding: 0 250px 0;
+}
+
+.punch_img {
+  width: 80px;
+  margin: 300px 330px 0;
+  cursor: pointer;
+}
+
+.punch_img:hover {
+  transform: scale(1.3);
+}
+
+.rabbit_img {
+  padding: 380px 300px 0;
+}
+
+/* .rabbit_img:hover {
+  transform: scale(1.3);
+} */
