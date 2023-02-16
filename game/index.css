@@ -84,3 +84,42 @@ button {
   width: 30vw;
   height: 20vh;
 }
+
+.pop-up {
+  width: 700px;
+  height: 400px;
+  padding-top: 1em;
+  margin: auto;
+  background-color: #00000090;
+  color: white;
+  border-radius: 5%;
+  transform: translateY(-150%);
+  display: none;
+}
+
+.pop-up_message {
+  display: block;
+  font-size: 2em;
+  font-weight: bolder;
+  padding-bottom: 10px;
+}
+
+@keyframes attackMove {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(20%);
+  }
+}
+
+@keyframes attackMoveRabbit {
+  from {
+    transform: translateX(20%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
