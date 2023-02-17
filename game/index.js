@@ -100,6 +100,7 @@ const addItem = () => {
       overAudio.src = "./sound/game_over.mp3";
       overAudio.autoplay = true;
       popUpModal.appendChild(overAudio);
+      // punchBtn.removeEventListener("click", () => {});
     }
   });
 
