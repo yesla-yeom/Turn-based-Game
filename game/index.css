@@ -87,14 +87,14 @@ button {
 
 .pop-up {
   width: 700px;
-  height: 400px;
+  height: 100px;
   padding-top: 1em;
   margin: auto;
   background-color: #00000090;
   color: white;
   border-radius: 5%;
   transform: translateY(-150%);
-  display: none;
+  display: block;
 }
 
 .pop-up_message {
@@ -110,16 +110,16 @@ button {
   }
 
   to {
-    transform: translateX(20%);
+    transform: translateX(40%);
   }
 }
 
 @keyframes attackMoveRabbit {
   from {
-    transform: translateX(20%);
+    transform: translateX(0%);
   }
 
   to {
-    transform: translateX(0%);
+    transform: translateX(-40%);
   }
 }

@@ -5,14 +5,26 @@ const rabbitHp = document.getElementsByClassName("rabbit_hp")[0];
 const pikachuImg = document.getElementsByClassName("pikachu_img")[0];
 const rabbitImg = document.getElementsByClassName("rabbit_img")[0];
 
-const popupModal = document.querySelector(".pop-up");
+const popUpModal = document.querySelector(".pop-up_modal");
 const popUpMsg = document.querySelector(".pop-up_message");
-const popUpRefresh = document.querySelector(".pop-up_refresh");
+
+const parent = document.getElementsByClassName("rabbit_hp")[0];
 
 let started = false;
-let clicked = false;
 
-let CARROT_COUNT = 10;
+let carrotCount = 10;
+let lightCount = 10;
+
+// win = 이기면 트루, 지면 false 되게 해서
+
+const popUpMessage = (win) => {
+  console.log(win);
+  popUpMsg.innerText = win ? "WIN💗" : "LOSE";
+};
+
+const gameOver = () => {
+  started = false;
+};
 
 startBtn.addEventListener("click", () => {
   if (started) {
@@ -33,13 +45,18 @@ const gameStart = () => {
   bgm();
 };
 
+const gameOnAudio = document.createElement("audio");
+
 const bgm = () => {
-  const gameOnAudio = document.createElement("audio");
   gameOnAudio.src = "./sound/bg.mp3";
   gameOnAudio.autoplay = true;
   gameOnAudio.loop = true;
   gameOnAudio.play();
   startBtn.appendChild(gameOnAudio);
+};
+
+const stopBgm = () => {
+  gameOnAudio.pause();
 };
 
 const initGame = () => {
@@ -64,18 +81,32 @@ const addItem = () => {
 
   // 펀치 버튼 누르면 당근 사라지게
   punchBtn.addEventListener("click", () => {
+    if (parent.innerHTML == "") {
+      lightCount = 0;
+      stopBgm();
+    }
     disappearCarrot();
+    rabbitPunch();
     pikachuMove();
     const punchAudio = document.createElement("audio");
     punchAudio.src = "./sound/pikachu_punch.mp3";
     punchAudio.autoplay = true;
     punchBtn.appendChild(punchAudio);
+
+    if (carrotCount == 0) {
+      popUpModal.classList.add("pop-up");
+      popUpMessage(true);
+      const overAudio = document.createElement("audio");
+      overAudio.src = "./sound/game_over.mp3";
+      overAudio.autoplay = true;
+      popUpModal.appendChild(overAudio);
+    }
   });
 
   const pikachuMove = () => {
     // 타격이동
     pikachuImg.style.animation = "attackMove 0.2s 1";
-
+    // 0.2초 후에 초기화 되고, 다시 또 움직임
     setTimeout(() => {
       pikachuImg.style.animation = "";
     }, 200);
@@ -84,58 +115,53 @@ const addItem = () => {
   const disappearCarrot = () => {
     // 당근 랜덤으로 사라지게
     const randomMatch = Math.floor(Math.random() * 3);
+    carrotCount = carrotCount - randomMatch;
     for (let i = 0; i < randomMatch; i++) {
-      const parent = document.getElementsByClassName("rabbit_hp")[0];
-      parent.removeChild(parent.firstChild);
+      // console.log(parent.innerHTML);
+      if (parent.innerHTML == "") {
+        //*
+        carrotCount = 0; //*
+        stopBgm();
+        break; //*
+      } else {
+        parent.removeChild(parent.firstChild);
+      }
     }
   };
 };
 
-const gameOn = () => {
-  pikachuPunch();
-  rabbitPunch();
-};
-
 const rabbitPunch = () => {
-  clicked = true;
   // 토끼는 자동으로 전투 (왼쪽으로 이동이동)
-  if (CARROT_COUNT < 10) {
-    const parent = document.getElementsByClassName("pikachu_hp")[0];
-    parent.removeChild(parent.firstChild);
-
-    rabbitImg.style.animation = "attackMoveRabbit 0.2s 1";
-    // 타격이동 반복
+  if (carrotCount < 10) {
     setTimeout(() => {
-      rabbitImg.style.animation = "";
-    }, 200);
-  }
+      const randomMatch = Math.floor(Math.random() * 3);
+      lightCount = lightCount - randomMatch;
+      for (let i = 0; i < randomMatch; i++) {
+        const parent = document.getElementsByClassName("pikachu_hp")[0];
+        parent.removeChild(parent.firstChild);
+        if (parent.innerHTML == "") {
+          popUpModal.classList.add("pop-up");
+          popUpModal.classList.add("pop-up_message");
+          stopBgm();
+          popUpMessage(false);
+          const overAudio = document.createElement("audio");
+          overAudio.src = "./sound/game_over.mp3";
+          overAudio.autoplay = true;
+          popUpModal.appendChild(overAudio);
+        }
+      }
+      rabbitImg.style.animation = "attackMoveRabbit 0.2s 1";
+      // 타격이동 반복
+      setTimeout(() => {
+        rabbitImg.style.animation = "";
+      }, 200);
 
-  // 피카츄한테서 선빵 맞은 후에 셋타임아웃 걸고 공격하게
-
-  const rabbitPunchAudio = document.createElement("audio");
-  rabbitPunchAudio.src = "./sound/rabbit_punch.mp3";
-  rabbitPunchAudio.autoplay = true;
-  rabbitImg.appendChild(rabbitPunchAudio);
-};
-
-const popUp = () => {
-  // ...?
-  // WIN * LOSE 띄우기
-  // 아래에 StopBtn 띄우기
-};
-
-const popUpMessage = () => {
-  popUpMsg.innerText = "YOU WIN!";
-};
-
-const stopBtn = () => {
-  // 종료 버튼 누르면 다 사라지게
-};
-
-const gameOver = () => {
-  if ((CARROT_COUNT = 0)) {
-    const rabbitBlood = document.createElement("img");
-    rabbitBlood.src = "./img/blood.png";
-    rabbitImg.appendChild(rabbitBlood);
+      const rabbitPunchAudio = document.createElement("audio");
+      rabbitPunchAudio.src = "./sound/rabbit_punch.mp3";
+      rabbitPunchAudio.autoplay = true;
+      rabbitImg.appendChild(rabbitPunchAudio);
+    }, 100);
   }
 };
+
+// 종료 시 펀치 못 하기 ㅅ
