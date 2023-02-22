@@ -112,7 +112,6 @@ const addItem = () => {
       overAudio.src = "./sound/game_over.mp3";
       overAudio.autoplay = true;
       popUpModal.appendChild(overAudio);
-      // punchBtn.removeEventListener("click", () => {});
     }
   });
 
@@ -130,12 +129,10 @@ const addItem = () => {
     const randomMatch = Math.floor(Math.random() * 3);
     carrotCount = carrotCount - randomMatch;
     for (let i = 0; i < randomMatch; i++) {
-      // console.log(parent.innerHTML);
       if (parent.innerHTML == "") {
-        //*
-        carrotCount = 0; //*
+        carrotCount = 0;
         stopBgm();
-        break; //*
+        break;
       } else {
         parent.removeChild(parent.firstChild);
       }
@@ -176,5 +173,3 @@ const rabbitPunch = () => {
     }, 100);
   }
 };
-
-// 종료 시 펀치 못 하기 ㅅ
