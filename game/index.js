@@ -11,6 +11,7 @@ const popUpMsg = document.querySelector(".pop-up_message");
 const parent = document.getElementsByClassName("rabbit_hp")[0];
 
 let started = false;
+let gameOverCheck = false;
 
 let carrotCount = 10;
 let lightCount = 10;
@@ -20,6 +21,13 @@ let lightCount = 10;
 const popUpMessage = (win) => {
   console.log(win);
   popUpMsg.innerText = win ? "WIN💗" : "LOSE";
+  gameOverCheck = true;
+  setTimeout(() => {
+    startBtn.style.display = "block";
+    popUpMsg.innerText = "";
+    popUpModal.classList.remove("pop-up");
+    popUpModal.classList.remove("pop-up_message");
+  }, 3000);
 };
 
 const gameOver = () => {
@@ -27,6 +35,7 @@ const gameOver = () => {
 };
 
 startBtn.addEventListener("click", () => {
+  gameOverCheck = false;
   if (started) {
     gameOver();
   } else {
@@ -65,6 +74,8 @@ const initGame = () => {
 };
 
 const addItem = () => {
+  pikachuHp.innerHTML = "";
+  rabbitHp.innerHTML = "";
   for (let i = 1; i < 11; i++) {
     const addLight = document.createElement("img");
     addLight.style.width = "40px";
@@ -81,6 +92,7 @@ const addItem = () => {
 
   // 펀치 버튼 누르면 당근 사라지게
   punchBtn.addEventListener("click", () => {
+    if (gameOverCheck) return;
     if (parent.innerHTML == "") {
       lightCount = 0;
       stopBgm();
